@@ -1,3 +1,10 @@
+# System Files
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+.idea
+
 # Env file
 .env
 
