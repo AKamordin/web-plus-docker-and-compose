@@ -1,4 +1,3 @@
-import path from "path";
 import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
 import {
     DEFAULT_DB_HOST,
