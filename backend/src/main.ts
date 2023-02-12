@@ -6,11 +6,12 @@ import {ConfigService} from "@nestjs/config";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
-  app.enableCors({
-    origin: configService.get<string | string[]>('allowedOrigins'),
+  const corsOptions = {
+    origin: configService.get<string | string[]>('allowedOrigins') || '*',
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     allowedHeaders: ['content-type'],
-  })
+  };
+  app.enableCors(corsOptions);
   app.useGlobalPipes(new ValidationPipe());
   const PORT = configService.get<number>('port');
   await app.listen(PORT);
