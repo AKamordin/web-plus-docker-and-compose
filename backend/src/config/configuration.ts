@@ -22,5 +22,5 @@ export default () => ({
         logging: true,
     } as PostgresConnectionOptions,
     secretKey: process.env.JWT_SECRET || DEFAULT_JWT_SECRET,
-    allowList: process.env.ALLOWED_ORIGINS.split(',') || '*',
+    allowedOrigins: process.env.ALLOWED_ORIGINS.split(',') || '*',
 });
