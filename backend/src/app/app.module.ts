@@ -14,6 +14,7 @@ import configuration from '../config/configuration';
   imports: [
     ConfigModule.forRoot({
       load: [configuration],
+      isGlobal: true,
     }),
     DbModule,
     AuthModule,

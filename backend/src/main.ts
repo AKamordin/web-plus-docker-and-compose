@@ -1,18 +1,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { ValidationPipe } from '@nestjs/common';
-import configuration from './config/configuration';
+import {ConfigService} from "@nestjs/config";
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    cors: {
-      origin: ['http://kpd.akamodin.nomoredomains.work', 'https://kpd.akamodin.nomoredomains.work'],
-      allowedHeaders: 'authorization,content-type',
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    },
-  });
+  const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
+  app.enableCors({
+    origin: configService.get<string | string[]>('allowedOrigins'),
+  })
   app.useGlobalPipes(new ValidationPipe());
-  const PORT = configuration().port;
+  const PORT = configService.get<number>('port');
   await app.listen(PORT);
 }
 

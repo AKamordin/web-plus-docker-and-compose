@@ -5,7 +5,10 @@ import configuration from "../config/configuration";
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ load: [configuration], isGlobal: true }),
+    ConfigModule.forRoot({
+      load: [configuration],
+      isGlobal: true,
+    }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) =>
