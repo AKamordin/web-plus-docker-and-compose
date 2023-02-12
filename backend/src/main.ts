@@ -5,7 +5,12 @@ import configuration from './config/configuration';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    cors: true,
+    cors: {
+      origin: configuration().allowedOrigins,
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      preflightContinue: false,
+      optionsSuccessStatus: 204,
+    },
   });
   app.useGlobalPipes(new ValidationPipe());
   const PORT = configuration().port;
