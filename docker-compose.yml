@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  frontend:
+    container_name: kpd-frontend
+    build: ./frontend
+    restart:
+      on-failure
+    ports:
+      - "8081:80"
+  backend:
+    container_name: kpd-backend
+    build: ./backend
+    networks:
+      - backend-database
+    env_file:
+      - ./.env
+    restart:
+      on-failure
+    ports:
+      - "4000:3000"
+    depends_on:
+      - database
+  database:
+    container_name: kpd-database
+    image: postgres:12
+    networks:
+      - backend-database
+    env_file:
+      - ./.env
+    restart:
+      on-failure
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data/pgdata
+volumes:
+  pg_data:
+networks:
+  backend-database: {}

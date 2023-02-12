@@ -1,0 +1,5 @@
+# Env file
+.env
+
+# DB data
+pg_data
