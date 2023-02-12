@@ -18,7 +18,7 @@ export default () => ({
         username: process.env.POSTGRES_USER || DEFAULT_DB_USER,
         password: process.env.POSTGRES_PASSWORD || DEFAULT_DB_PASS,
         database: process.env.POSTGRES_DB || DEFAULT_DB_NAME,
-        entities: [path.resolve(`${__dirname}/../../**/*.entity{.ts,.js}`)],
+        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: true,
         logging: true,
     } as PostgresConnectionOptions,
