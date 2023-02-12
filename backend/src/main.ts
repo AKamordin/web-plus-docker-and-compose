@@ -6,11 +6,7 @@ import configuration from './config/configuration';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin: configuration().allowedOrigins,
-      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-      preflightContinue: false,
-      optionsSuccessStatus: 204,
-      allowedHeaders: ['Content-Type'],
+      origin: ['http://kpd.akamodin.nomoredomains.work', 'https://kpd.akamodin.nomoredomains.work']
     },
   });
   app.useGlobalPipes(new ValidationPipe());
