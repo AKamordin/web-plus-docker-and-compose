@@ -1,20 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
-import { DEFAULT_PORT } from './constants';
 import { ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import configuration from './config/configuration';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe());
-  const configService = app.get(ConfigService);
-  const origins = configService.get<string>('ALLOWED_ORIGINS').split(',') || '*';
-  app.enableCors({
-    origin: origins,
-    methods: 'GET, PUT, POST, DELETE',
-    allowedHeaders: 'Content-Type, Authorization',
+  const app = await NestFactory.create(AppModule, {
+    cors: {origin: configuration().allowList}
   });
-  const PORT = configService.get<number>('PORT') || DEFAULT_PORT;
+  app.useGlobalPipes(new ValidationPipe());
+  const PORT = configuration().port;
   await app.listen(PORT);
 }
 
