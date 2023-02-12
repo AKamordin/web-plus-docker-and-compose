@@ -9,7 +9,7 @@ async function bootstrap() {
   const corsOptions = {
     origin: ['http://kpd.akamodin.nomoredomains.work', 'https://kpd.akamodin.nomoredomains.work'],
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-    allowedHeaders: ['content-type'],
+    allowedHeaders: ['authorization', 'content-type'],
   };
   app.enableCors(corsOptions);
   app.useGlobalPipes(new ValidationPipe());
